@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MrFeastProject - Услуги для игр</title>
+    <style>
+        /* База */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* Контейнер для мобильного вида */
+        .app-container {
+            max-width: 460px;
+            width: 100%;
+            background: radial-gradient(circle at 50% 0%, #2a0a0a 0%, #0a0a0a 80%);
+            padding: 20px 24px 40px;
+            position: relative;
+            border-left: 1px solid rgba(255, 255, 255, 0.03);
+            border-right: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* Шапка */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-top: 5px;
+            margin-bottom: 25px;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.5px;
+            color: #ff3333; /* Яркий красный */
+            text-shadow: 0 0 15px rgba(255, 51, 51, 0.3);
+        }
+        .logo span {
+            display: block;
+            font-weight: 700;
+            font-size: 24px;
+            color: #ff6666;
+            text-shadow: 0 0 10px rgba(255, 102, 102, 0.2);
+        }
+        nav {
+            display: flex;
+            gap: 18px;
+            font-size: 14px;
+            color: #888888;
+            margin-top: 5px;
+        }
+        nav a { text-decoration: none; color: inherit; transition: 0.2s; }
+        nav a:hover { color: #ff3333; }
+
+        /* Текст сбоку (Описание) */
+        .side-text {
+            border-left: 3px solid #ff3333;
+            padding-left: 14px;
+            margin-left: 5px;
+            margin-bottom: 30px;
+            color: #cfcfcf;
+            font-size: 15px;
+            line-height: 1.6;
+            background: rgba(255, 51, 51, 0.03);
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+        }
+        .side-text strong { color: #ff5555; }
+
+        /* Карточка */
+        .card {
+            background: linear-gradient(145deg, rgba(40, 10, 10, 0.7), rgba(10, 5, 5, 0.9));
+            border-radius: 24px;
+            padding: 24px 20px 30px;
+            box-shadow: 0 15px 45px rgba(255, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 51, 51, 0.15);
+            margin-bottom: 20px;
+        }
+
+        /* Иконка Корона */
+        .icon-wrapper {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, #cc0000, #8a0000);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(204, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .icon-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 18px;
+            pointer-events: none;
+        }
+        .icon-wrapper svg {
+            width: 34px;
+            height: 34px;
+            stroke: #ffffff;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+
+        .card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+            color: #ffffff;
+        }
+        .card .desc {
+            color: #b0b0b0;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 22px;
+        }
+
+        /* Список */
+        ul.features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        ul.features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #dddddd;
+        }
+        /* Красная круглая галочка */
+        ul.features li .check {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            border-radius: 50%;
+            margin-right: 14px;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+        }
+        ul.features li .check svg {
+            width: 14px;
+            height: 14px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Кнопка с красной неоновой тенью */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(255, 51, 51, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn:active { transform: scale(0.97); box-shadow: 0 4px 15px rgba(255, 51, 51, 0.6); }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            font-size: 12px;
+            color: #444444;
+            padding: 20px 0 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        @media (min-width: 500px) {
+            body { background: #050505; }
+            .app-container { box-shadow: 0 0 50px rgba(255, 0, 0, 0.05); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <div class="logo">MrFeast<span>Project</span></div>
+        <nav>
+            <a href="#">Главная</a>
+            <a href="#">Портфолио</a>
+        </nav>
+    </header>
+
+    <!-- Новое описание сверху -->
+    <div class="side-text">
+        <strong>Добавьте</strong> в свою игру удобный кастомный чат без цензуры, с кастомизацией сообщений и перетаскиваемым окном.<br>
+        <strong>Оптимизируйте</strong> игру: [+качество графики, +стабильность игры, +FPS(частота кадров) для комфорта]<br>
+        <strong>Загрузочный экран:</strong> Сделайте красивый загрузочный экран для игры.
+    </div>
+
+    <div class="card">
+        <!-- Иконка Короны -->
+        <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+        </div>
+        
+        <h2>Услуга улучшения игры</h2>
+        <div class="desc">• Помощь в развитии игры, • Оптимизация игры, • Современные технологии</div>
+
+        <ul class="features">
+            <li>
+                <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Гарантия что все без обмана
+            </li>
+            <li>
+                <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Гарантия быстрой оптимизации игры
+            </li>
+            <li>
+                <span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Гарантия что все наши технологии будут работать исправно
+            </li>
+        </ul>
+
+        <!-- Кнопка с ссылкой на Telegram (приложение) -->
+        <a href="tg://resolve?domain=MrFeast_Official" class="btn">Попробуйте прямо сейчас - @MrFeast_Official</a>
+    </div>
+
+    <footer>© 2026 MrFeastProject. Все права защищены.</footer>
+</div>
+
+</body>
+</html>
